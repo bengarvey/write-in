@@ -22,7 +22,7 @@ function processData(data) {
   data.forEach( (row, index) => {
     var rec = row.split(" ");
     if (isRecord(rec)) {
-      records.push(convertRecord(rec, meta));
+      records.push(convertRecord(rec, meta, index));
     }
     else {
       meta = updateMeta(rec, meta);
@@ -44,11 +44,12 @@ function isVoterTag(str) {
   return str.match(/[A-Z][A-Z][A-Z][A-Z][A-Z]/) !== null;
 }
 
-function convertRecord(rec, meta) {
+function convertRecord(rec, meta, index) {
   var obRecord = {
     voterTag: rec[rec.length-1],
     machine: rec[rec.length-2],
-    vote: getVote(rec)
+    vote: getVote(rec),
+    id: index
   };
 
   Object.keys(meta).forEach( function(key) {
