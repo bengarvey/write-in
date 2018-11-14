@@ -19,12 +19,17 @@ function stringToArray(data) {
 function processData(data) {
   var records = [];
   var meta = {};
+  var newMeta = true;
   data.forEach( (row, index) => {
     var rec = row.split(" ");
     if (isRecord(rec)) {
       records.push(convertRecord(rec, meta, index));
     }
     else {
+      if (newMeta) {
+        meta = {};
+        newMeta = false;
+      }
       meta = updateMeta(rec, meta);
     }
   });
@@ -88,7 +93,7 @@ function identifyMeta(meta) {
   else if (meta[0] === 'Vote') {
     return 'instructions';
   }
-  else if (meta[0] === 'Local' || meta[0] === 'Federal') {
+  else if (meta[0] === 'Federal') {
     return 'scope';
   }
   else if (meta[0] === 'Write-in') {
@@ -97,7 +102,7 @@ function identifyMeta(meta) {
   else if (meta[0] === 'Camden') {
     return 'county';
   }
-  else if (meta[1] === 'Subdivision:') {
+  else if (meta[0] === 'Political') {
     return 'subdivision';
   }
   else if (meta[0] === 'Personal') {
