@@ -85,15 +85,15 @@ function updateMeta(rec, meta) {
 function identifyMeta(meta) {
   const match = meta[0];
   const lookup = {
-    Machine:          'columns',
-    November:         'date',
-    Vote:             'instructions',
-    Federal:          'scope',
-    'Write-in':       'columns2',
-    Camden:           'county',
-    Political:        'subdivision',
-    Personal:         'columns3',
-    'CAM_20181106_E':  'code'
+    Machine:            'columns',
+    November:           'date',
+    Vote:               'instructions',
+    Federal:            'scope',
+    'Write-in':         'columns2',
+    Camden:             'county',
+    Political:          'subdivision',
+    Personal:           'columns3',
+    'CAM_20181106_E':   'code'
   }
 
   return typeof(lookup[match]) !== 'undefined' ? lookup[match] : 'office';
