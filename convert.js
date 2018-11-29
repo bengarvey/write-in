@@ -83,7 +83,7 @@ function updateMeta(rec, meta) {
 }
 
 function identifyMeta(meta) {
-  const match = meta[0];
+  const match = meta.length > 0 ? meta[0] : null;
   const lookup = {
     Machine:            'columns',
     November:           'date',
