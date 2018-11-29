@@ -75,6 +75,7 @@ function getVote(rec) {
 
 function updateMeta(rec, meta) {
   var type = identifyMeta(rec);
+
   if (type) {
     meta[type] = rec.join(" ");
   }
@@ -82,37 +83,19 @@ function updateMeta(rec, meta) {
 }
 
 function identifyMeta(meta) {
-  var fullStr = meta.join(' ');
+  const match = meta.length > 0 ? meta[0] : null;
+  const lookup = {
+    Machine:            'columns',
+    November:           'date',
+    Vote:               'instructions',
+    Federal:            'scope',
+    'Write-in':         'columns2',
+    Camden:             'county',
+    Political:          'subdivision',
+    Personal:           'columns3',
+    'CAM_20181106_E':   'code'
+  }
 
-  if (fullStr === 'Machine Voter Tag') {
-    return 'columns';
-  }
-  else if (meta[0] === 'November') {
-    return 'date';
-  }
-  else if (meta[0] === 'Vote') {
-    return 'instructions';
-  }
-  else if (meta[0] === 'Federal') {
-    return 'scope';
-  }
-  else if (meta[0] === 'Write-in') {
-    return 'columns2';
-  }
-  else if (meta[0] === 'Camden') {
-    return 'county';
-  }
-  else if (meta[0] === 'Political') {
-    return 'subdivision';
-  }
-  else if (meta[0] === 'Personal') {
-    return 'columns3';
-  }
-  else if (meta[0] === 'CAM_20181106_E') {
-    return 'code';
-  }
-  else {
-    return 'office';
-  }
+  return typeof(lookup[match]) !== 'undefined' ? lookup[match] : 'office';
+
 }
-
